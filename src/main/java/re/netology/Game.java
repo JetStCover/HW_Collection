@@ -22,11 +22,9 @@ public class Game {
     }
 
     private int findPlayer(String playerName) {
-        for (String player : map.keySet()) {
-            if (player.equals(playerName)) {
-                return map.get(player);
+            if (!map.containsKey(playerName)) {
+                throw new NotRegisteredException(playerName);
             }
+            return map.get(playerName);
         }
-        throw new NotRegisteredException(playerName);
     }
-}
