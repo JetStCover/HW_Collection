@@ -1,17 +1,17 @@
 package re.netology;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
-    ArrayList<Player> players = new ArrayList<>();
+    private HashMap<String, Integer> map = new HashMap<>();
 
     public void register(Player player) {
-        players.add(player);
+        map.put(player.getName(), player.getStrength());
     }
 
     public int round(String playerName1, String playerName2) {
-        int playerStrength1 = findPlayer(playerName1).getStrength();
-        int playerStrength2 = findPlayer(playerName2).getStrength();
+        int playerStrength1 = findPlayer(playerName1);
+        int playerStrength2 = findPlayer(playerName2);
 
         if (playerStrength1 > playerStrength2) {
             return 1;
@@ -21,10 +21,10 @@ public class Game {
         return 0;
     }
 
-    private Player findPlayer(String playerName) {
-        for (Player player : players) {
-            if (player.getName().equals(playerName)) {
-                return player;
+    private int findPlayer(String playerName) {
+        for (String player : map.keySet()) {
+            if (player.equals(playerName)) {
+                return map.get(player);
             }
         }
         throw new NotRegisteredException(playerName);
